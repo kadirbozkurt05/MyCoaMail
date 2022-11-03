@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border4"
         android:fontFamily="@font/aladin"
-        android:hint="ex: 2914313523"
+        android:hint="ex: 1234567890"
         android:inputType="number"
         android:maxLength="10"
         android:textSize="20sp"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:src="@drawable/signinbutton"
+        android:src="@drawable/submitbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vNumEditText" />
