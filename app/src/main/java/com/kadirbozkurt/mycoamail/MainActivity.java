@@ -1,29 +1,28 @@
 package com.kadirbozkurt.mycoamail;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +38,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -58,6 +56,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private EditText vNumEditText;
+    private EditText customTime;
     private ProgressBar progressBar;
     private String vNum;
     private Dialog vNumDialog;
@@ -76,14 +75,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadAd();
-        bannerAd();
+
+        //loadAd();
+        //bannerAd();
         changeVnumButton = findViewById(R.id.changeVnumButton);
         changeUpdateTimeButton = findViewById(R.id.changeUpdateTimeButton);
         refreshButton = findViewById(R.id.refreshButton);
         sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
         vNum = sharedPreferences.getString("vNum","");
-        timeToRefresh = sharedPreferences.getInt("timeToRefresh",15);
+        timeToRefresh = sharedPreferences.getInt("timeToRefresh",60);
         mailBox = findViewById(R.id.mailBox);
         textView = findViewById(R.id.textView);
         textView.setVisibility(View.GONE);
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         vNumDialog = new Dialog(this);
         openDialog();
+
 
     }
 
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void unused) {
                 super.onPostExecute(unused);
-                showAd();
+                //showAd();
                 textView.setVisibility(View.VISIBLE);
                 refreshButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loadAd();
+            //loadAd();
             progressBar.setVisibility(View.VISIBLE);
             mailBox.setVisibility(View.INVISIBLE);
 
@@ -155,10 +156,12 @@ public class MainActivity extends AppCompatActivity {
                         Snackbar.make(findViewById(android.R.id.content).getRootView(),"V-Number must be 10 digits!",Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
                             }
                         }).show();
                     }else{
+                            ignoreBatteryOptimization();
+
+
                         sharedPreferences.edit().putString("vNum",vNum).commit();
                         vNumDialog.dismiss();
                         MailPage mailPage = new MailPage();
@@ -208,11 +211,12 @@ public class MainActivity extends AppCompatActivity {
         timeDialog.setContentView(R.layout.update_time_alert);
         timeDialog.setCancelable(false);
 
+        customTime = timeDialog.findViewById(R.id.customTime);
         RadioGroup radioGroup = timeDialog.findViewById(R.id.timeRadioGroup);
         RadioButton minutes15 = timeDialog.findViewById(R.id.minutes15);
         RadioButton minutes30 = timeDialog.findViewById(R.id.minutes30);
         RadioButton minutes45 = timeDialog.findViewById(R.id.minutes45);
-        RadioButton minutes60 = timeDialog.findViewById(R.id.minutes60);
+        RadioButton never = timeDialog.findViewById(R.id.never);
         ImageView approveTimeButton = timeDialog.findViewById(R.id.timeApproveButton);
         timeDialog.show();
 
@@ -225,11 +229,16 @@ public class MainActivity extends AppCompatActivity {
                     timeToRefresh = 30;
                 }else if (minutes45.isChecked()){
                     timeToRefresh = 45;
-                }else if (minutes60.isChecked()){
-                    timeToRefresh = 60;
+                }else if (never.isChecked()){
+                    timeToRefresh = Integer.MAX_VALUE;
                 }
+            }
+        });
 
-
+        customTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                radioGroup.clearCheck();
             }
         });
         
@@ -237,7 +246,11 @@ public class MainActivity extends AppCompatActivity {
         approveTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!customTime.getText().toString().isEmpty()){
+                    timeToRefresh = Integer.parseInt(customTime.getText().toString());
+                }
                 sharedPreferences.edit().putInt("timeToRefresh",timeToRefresh).commit();
+
                 timeDialog.dismiss();
             }
         });
@@ -250,51 +263,6 @@ public class MainActivity extends AppCompatActivity {
         MailPage mailPage = new MailPage();
         mailPage.execute();
         executeWorkManager();
-    }
-    private void bannerAd(){
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-
-            @Override
-            public void onAdFailedToLoad(LoadAdError adError) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdImpression() {
-                // Code to be executed when an impression is recorded
-                // for an ad.
-            }
-
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-        });
     }
     public void loadAd(){
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -368,7 +336,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void ignoreBatteryOptimization() {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("You must allow permission this app to check your posts in background. Otherwise" +
+                "you will not get notification even if you received a post!");
+        alert.setNegativeButton("Don't allow", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent();
+                String packageName = getPackageName();
+                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                if (pm != null && !pm.isIgnoringBatteryOptimizations(packageName)) {
+                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    intent.setData(Uri.parse("package:" + packageName));
+                    startActivity(intent);
+                }
+            }
+        });
+        alert.show();
 
 
 
+    }
+    public void runBackGround(View v){
+        ignoreBatteryOptimization();
+    }
 }
