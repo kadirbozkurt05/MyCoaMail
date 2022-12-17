@@ -7,50 +7,7 @@
     android:background="#B2DADADA"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/changeUpdateTimeButton"
-        android:layout_width="137dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/alata"
-        android:onClick="selectUpdateTime"
-        android:text="Auto Check Post"
-        app:layout_constraintBottom_toTopOf="@id/backgroundPermissionButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/refreshButton" />
 
-    <Button
-        android:id="@+id/changeVnumButton"
-        android:layout_width="137dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/alata"
-        android:onClick="changeVnum"
-        android:text="Change Vnumber"
-        app:layout_constraintBottom_toTopOf="@id/backgroundPermissionButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/refreshButton"
-        app:layout_constraintVertical_bias="0.495" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alata"
-        android:text="It's just begun!"
-        android:textColor="#2E2E2E"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@id/mailBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/refreshButton"
-        app:layout_constraintVertical_bias="0.52" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -60,41 +17,99 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.60"/>
 
     <ImageView
         android:id="@+id/mailBox"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider"
+        app:srcCompat="@drawable/emptymailbox" />
+<View
+    android:id="@+id/divider"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/bottom_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/rounded_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/divider"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+
+        android:elevation="4dp"
+        android:background="@drawable/rounded_rectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="It's just begun!"
+        android:textColor="#2E2E2E"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/emptymailbox" />
-
-    <Button
-        android:id="@+id/backgroundPermissionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="runBackGround"
-        android:text="Run App On Background To Check My posts"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintVertical_bias="0.50" />
 
     <Button
         android:id="@+id/refreshButton"
-        android:layout_width="137dp"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/new_white"
+        android:elevation="10dp"
         android:fontFamily="@font/alata"
         android:onClick="refresh"
         android:text="Check Post"
-        app:layout_constraintBottom_toTopOf="@id/changeUpdateTimeButton"
+
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/changeUpdateTimeButton"
+        android:layout_width="129dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/alata"
+        android:onClick="selectUpdateTime"
+        android:text="Auto Check Post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/refreshButton" />
+
+    <Button
+        android:id="@+id/changeVnumButton"
+        android:layout_width="116dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/alata"
+        android:onClick="changeVnum"
+        android:text="Change Vnumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/refreshButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
