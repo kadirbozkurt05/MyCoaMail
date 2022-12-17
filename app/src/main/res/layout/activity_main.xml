@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aladin"
-        android:text="Hello World!"
+        android:text="It's just begun!"
         android:textColor="#FF0000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
