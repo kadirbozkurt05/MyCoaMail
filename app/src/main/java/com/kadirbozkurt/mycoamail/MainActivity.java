@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
+import com.kadirbozkurt.mycoamail.databinding.ActivityMainBinding;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -46,38 +49,44 @@ import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TextView textView;
-    private EditText vNumEditText;
-    private EditText customTime;
-    private ProgressBar progressBar;
+
+    //List of autostart packages for Chinese Rom
+    public static List<Intent> POWER_MANAGER_INTENTS = Arrays.asList(
+            new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")),
+            new Intent().setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity")),
+            new Intent().setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity")),
+            new Intent().setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity")),
+            new Intent().setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.startupapp.StartupAppListActivity")),
+            new Intent().setComponent(new ComponentName("com.oppo.safe", "com.oppo.safe.permission.startup.StartupAppListActivity")),
+            new Intent().setComponent(new ComponentName("com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity")),
+            new Intent().setComponent(new ComponentName("com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager")),
+            new Intent().setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity")),
+            new Intent().setComponent(new ComponentName("com.asus.mobilemanager", "com.asus.mobilemanager.entry.FunctionActivity")).setData(android.net.Uri.parse("mobilemanager://function/entry/AutoStart"))
+    );
+
+    private ActivityMainBinding binding;
     private String vNum;
     private Dialog vNumDialog;
-    private ImageView vNumSendButton;
     private int timeToRefresh;
     private SharedPreferences sharedPreferences;
-    private ImageView mailBox;
-    private Button changeVnumButton;
-    private Button changeUpdateTimeButton;
-    private Button refreshButton;
+    private MailPage mailPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        changeVnumButton = findViewById(R.id.changeVnumButton);
-        changeUpdateTimeButton = findViewById(R.id.changeUpdateTimeButton);
-        refreshButton = findViewById(R.id.refreshButton);
+        //get the v-num and duration time if they are already stored
         sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
         vNum = sharedPreferences.getString("vNum","");
         timeToRefresh = sharedPreferences.getInt("timeToRefresh",60);
-        mailBox = findViewById(R.id.mailBox);
-        textView = findViewById(R.id.textView);
-        progressBar = findViewById(R.id.progressBar);
-        textView.setText("Your posts are being checked...");
-        mailBox.setVisibility(View.INVISIBLE);
 
-        vNumDialog = new Dialog(this);
+        //Because it is checking the posts at that point set text and hide image
+        binding.textView.setText("Your posts are being checked...");
+        binding.mailBox.setVisibility(View.INVISIBLE);
+        vNumDialog = new Dialog(this); //Dialog for asking v-num at the beginning and changing
+
         openDialog();
 
 
@@ -100,17 +109,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void unused) {
                 super.onPostExecute(unused);
-                textView.setVisibility(View.VISIBLE);
-                refreshButton.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-                mailBox.setVisibility(View.VISIBLE);
-                changeUpdateTimeButton.setVisibility(View.VISIBLE);
-                changeVnumButton.setVisibility(View.VISIBLE);
+                binding.refreshButton.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
+                binding.mailBox.setVisibility(View.VISIBLE);
+                binding.changeUpdateTimeButton.setVisibility(View.VISIBLE);
+                binding.changeVnumButton.setVisibility(View.VISIBLE);
                 if(element.size()==0){
-                    textView.setText("You don't have a mail!");
+                    binding.textView.setText("You don't have a mail!");
                 }else{
-                    textView.setText("You have a mail!");
-                    mailBox.setImageResource(R.drawable.fullmailbox);
+                    binding.textView.setText("You have a mail!");
+                    binding.mailBox.setImageResource(R.drawable.fullmailbox);
                 }
 
             }
@@ -118,43 +126,42 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            mailBox.setVisibility(View.INVISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
+            binding.mailBox.setVisibility(View.INVISIBLE);
 
         }
     }
     private void openDialog(){
-        if (vNum.isEmpty()){
-            vNumDialog.setContentView(R.layout.vnum_alert);
+        if (vNum.isEmpty()){//if it is the first time of running the app or user clicked the change v-num button
+            vNumDialog.setContentView(R.layout.vnum_alert); //get view of dialog
             vNumDialog.setCancelable(false);
-            vNumEditText = vNumDialog.findViewById(R.id.vNumEditText);
-            vNumSendButton = vNumDialog.findViewById(R.id.vNumSendButton);
+            EditText vNumEditText = vNumDialog.findViewById(R.id.vNumEditText);
+            ImageView vNumSendButton = vNumDialog.findViewById(R.id.vNumSendButton);
             vNumDialog.show();
 
             vNumSendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     vNum = vNumEditText.getText().toString();
-                    if (vNum.length()<10){
+                    if (vNum.length()!=10){
                         Snackbar.make(findViewById(android.R.id.content).getRootView(),"V-Number must be 10 digits!",Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                             }
                         }).show();
                     }else{
-                        ignoreBatteryOptimization();
-                        sharedPreferences.edit().putString("vNum",vNum).commit();
+                        ignoreBatteryOptimization(); //if user provides his 10 digit v-num, ask for permissions
+                        sharedPreferences.edit().putString("vNum",vNum).commit(); // store the v-num
                         vNumDialog.dismiss();
-                        MailPage mailPage = new MailPage();
-                        mailPage.execute();
+                        MailPage mailPage = new MailPage(); //create Mail page object to start background task
+                        mailPage.execute(); // start background task
                         executeWorkManager();
-
                     }
                 }
             });
         }else {
             vNumDialog.dismiss();
-            MailPage mailPage = new MailPage();
+            mailPage=new MailPage();
             mailPage.execute();
             executeWorkManager();
 
@@ -192,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         timeDialog.setContentView(R.layout.update_time_alert);
         timeDialog.setCancelable(false);
 
-        customTime = timeDialog.findViewById(R.id.customTime);
+        EditText customTime = timeDialog.findViewById(R.id.customTime);
         RadioGroup radioGroup = timeDialog.findViewById(R.id.timeRadioGroup);
         RadioButton minutes15 = timeDialog.findViewById(R.id.minutes15);
         RadioButton minutes30 = timeDialog.findViewById(R.id.minutes30);
@@ -204,25 +211,38 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
                 if (minutes15.isChecked()){
+                    customTime.setText("");
+                    customTime.clearFocus();
                     ignoreBatteryOptimization();
                     timeToRefresh = 15;
                 }else if (minutes30.isChecked()){
+                    customTime.setText("");
+                    customTime.clearFocus();
                     ignoreBatteryOptimization();
                     timeToRefresh = 30;
                 }else if (minutes45.isChecked()){
+                    customTime.setText("");
+                    customTime.clearFocus();
                     ignoreBatteryOptimization();
                     timeToRefresh = 45;
                 }else if (never.isChecked()){
+                    customTime.setText("");
+                    customTime.clearFocus();
                     timeToRefresh = Integer.MAX_VALUE;
                 }
             }
         });
 
-        customTime.setOnClickListener(new View.OnClickListener() {
+
+        customTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                radioGroup.clearCheck();
+            public void onFocusChange(View view, boolean b) {
+                if (b){
+                    radioGroup.clearCheck();
+                }
+
             }
         });
         
@@ -240,20 +260,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void refresh(View v){
-        progressBar.setVisibility(View.VISIBLE);
-        refreshButton.setVisibility(View.INVISIBLE);
-        changeVnumButton.setVisibility(View.INVISIBLE);
-        textView.setText("Your posts are being checked...");
-        changeUpdateTimeButton.setVisibility(View.INVISIBLE);
-        MailPage mailPage = new MailPage();
+        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.refreshButton.setVisibility(View.INVISIBLE);
+        binding.changeVnumButton.setVisibility(View.INVISIBLE);
+        binding.textView.setText("Your posts are being checked...");
+        binding.changeUpdateTimeButton.setVisibility(View.INVISIBLE);
+        mailPage=new MailPage();
         mailPage.execute();
         executeWorkManager();
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void ignoreBatteryOptimization() {
-        if (ContextCompat.checkSelfPermission(this,Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)!=
-                PackageManager.PERMISSION_DENIED || ContextCompat.checkSelfPermission(this,Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)!=
-                PackageManager.PERMISSION_DENIED){
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        if (powerManager!=null && !powerManager.isIgnoringBatteryOptimizations(getPackageName())){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("You must allow permission this app to check your posts in background. Otherwise" +
                     "you will not get notification even if you received a post!");
@@ -266,32 +285,16 @@ public class MainActivity extends AppCompatActivity {
             alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    startPowerSaverIntent(MainActivity.this);
-                    Intent intent = new Intent();
-                    String packageName = getPackageName();
-                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                    if (pm != null && !pm.isIgnoringBatteryOptimizations(packageName)) {
+                        startPowerSaverIntent(MainActivity.this);
+                        Intent intent = new Intent();
                         intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                        intent.setData(Uri.parse("package:" + packageName));
+                        intent.setData(Uri.parse("package:" + getPackageName()));
                         startActivity(intent);
-                    }
                 }
             });
             alert.show();
         }
     }
-    public static List<Intent> POWER_MANAGER_INTENTS = Arrays.asList(
-            new Intent().setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")),
-            new Intent().setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity")),
-            new Intent().setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity")),
-            new Intent().setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity")),
-            new Intent().setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.startupapp.StartupAppListActivity")),
-            new Intent().setComponent(new ComponentName("com.oppo.safe", "com.oppo.safe.permission.startup.StartupAppListActivity")),
-            new Intent().setComponent(new ComponentName("com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity")),
-            new Intent().setComponent(new ComponentName("com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager")),
-            new Intent().setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity")),
-            new Intent().setComponent(new ComponentName("com.asus.mobilemanager", "com.asus.mobilemanager.entry.FunctionActivity")).setData(android.net.Uri.parse("mobilemanager://function/entry/AutoStart"))
-    );
     public static void startPowerSaverIntent(Context context) {
         SharedPreferences settings = context.getSharedPreferences("ProtectedApps", Context.MODE_PRIVATE);
         boolean skipMessage = settings.getBoolean("skipProtectedAppCheck", false);
