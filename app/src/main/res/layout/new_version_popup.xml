@@ -15,12 +15,11 @@
         android:text="There is a new version of the app. Do you want to update?"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/newVersionYesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/new_button"
-        android:enabled="false"
         android:fontFamily="@font/alata"
         android:text="Yes"
         android:textAllCaps="false"
@@ -31,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newVersionPopUpText"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/newVersionLaterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
