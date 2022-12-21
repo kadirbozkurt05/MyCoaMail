@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
-
         //After every 5 run, check for the update
         int day = sharedPreferences.getInt("day",0);
         System.out.println("DAY :"+day);
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             vNumDialog.setContentView(R.layout.vnum_alert); //get view of dialog
             vNumDialog.setCancelable(false);
             EditText vNumEditText = vNumDialog.findViewById(R.id.vNumEditText);
-            ImageView vNumSendButton = vNumDialog.findViewById(R.id.vNumSendButton);
+            Button vNumSendButton = vNumDialog.findViewById(R.id.vNumSendButton);
             vNumDialog.show();
 
             vNumSendButton.setOnClickListener(new View.OnClickListener() {
