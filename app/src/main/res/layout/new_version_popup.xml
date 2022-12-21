@@ -35,7 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/new_button"
-        android:enabled="false"
         android:fontFamily="@font/alata"
         android:text="Later"
         android:textAllCaps="false"
