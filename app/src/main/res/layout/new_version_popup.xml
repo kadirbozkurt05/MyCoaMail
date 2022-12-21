@@ -3,35 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/border4"
+    android:layout_margin="20dp">
 
     <TextView
         android:id="@+id/newVersionPopUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="There is a new version of the app. Do you want to update"
+        android:fontFamily="@font/alata"
+        android:text="There is a new version of the app. Do you want to update?"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/newVersionYesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="14dp"
+        android:background="@drawable/new_button"
+        android:enabled="false"
+        android:fontFamily="@font/alata"
         android:text="Yes"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:visibility="visible"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toStartOf="@+id/newVersionLaterButton"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newVersionPopUpText" />
+        app:layout_constraintTop_toBottomOf="@+id/newVersionPopUpText"/>
 
     <Button
         android:id="@+id/newVersionLaterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/new_button"
+        android:enabled="false"
+        android:fontFamily="@font/alata"
         android:text="Later"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:visibility="visible"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/newVersionYesButton"
-        app:layout_constraintTop_toBottomOf="@+id/newVersionPopUpText" />
+        app:layout_constraintTop_toBottomOf="@+id/newVersionPopUpText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
