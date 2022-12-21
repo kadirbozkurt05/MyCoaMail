@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34250409069",
+    "project_id": "mycoa-a71dc",
+    "storage_bucket": "mycoa-a71dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34250409069:android:463be0d937ac0afc002b64",
+        "android_client_info": {
+          "package_name": "com.kadirbozkurt.mycoamail"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34250409069-a7pifgvj5qqc08erqook4dk585jd6bd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwibXemq5PYb0m7SfqPfO35o0jV7y4sCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34250409069-a7pifgvj5qqc08erqook4dk585jd6bd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 package com.kadirbozkurt.mycoamail;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -19,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -37,6 +39,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.kadirbozkurt.mycoamail.databinding.ActivityMainBinding;
 
 import org.jsoup.Jsoup;
@@ -70,15 +76,30 @@ public class MainActivity extends AppCompatActivity {
     private int timeToRefresh;
     private SharedPreferences sharedPreferences;
     private MailPage mailPage;
+    private String latestVersion;
+    private String versionCode;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
+
+        //After every 5 run, check for the update
+        int day = sharedPreferences.getInt("day",0);
+        System.out.println("DAY :"+day);
+        sharedPreferences.edit().putInt("day",day+1).commit();
+        if (day>4){
+            checkVersion();
+            sharedPreferences.edit().putInt("day",0).commit();
+        }
+
 
         //get the v-num and duration time if they are already stored
-        sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
+
         vNum = sharedPreferences.getString("vNum","");
         timeToRefresh = sharedPreferences.getInt("timeToRefresh",60);
 
@@ -246,7 +267,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        
 
         approveTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,5 +352,60 @@ public class MainActivity extends AppCompatActivity {
         List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
                 PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void checkVersion(){
+        // Get the package manager
+        PackageManager packageManager = getPackageManager();
+
+        try {
+            // Get the package info
+            PackageInfo packageInfo = packageManager.getPackageInfo(getOpPackageName(), 0);
+
+            // Get the version code
+            versionCode = packageInfo.versionCode+"";
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("General").document("version").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                latestVersion = (String) value.getData().get("version");
+
+                if (!latestVersion.equals(versionCode)){
+                    //SHOW POP UP
+
+                    Dialog dialog = new Dialog(MainActivity.this);
+                    dialog.setContentView(R.layout.new_version_popup);
+                    Button yesButton = dialog.findViewById(R.id.newVersionYesButton);
+                    Button laterButton = dialog.findViewById(R.id.newVersionLaterButton);
+
+                    laterButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    yesButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String url = "https://play.google.com/store/apps/details?id=com.kadirbozkurt.mycoamail";
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(url));
+                            startActivity(intent);
+                        }
+                    });
+
+
+                    dialog.show();
+                }
+            }
+        });
+
+
     }
 }
