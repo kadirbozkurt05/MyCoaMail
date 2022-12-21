@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="new_white">#E5E5E5 </color>
     <color name="new_pink">#F5B7B1 </color>
+    <color name="new_button">#8F5E5A</color>
+    <color name="new_button_border">#C9918C </color>
+    <color name="trans">#00000000 </color>
+    <color name="half_trans">#DAD58888</color>
 </resources>

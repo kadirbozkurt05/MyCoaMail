@@ -46,10 +46,10 @@
         android:src="@drawable/rounded_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/divider"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -76,13 +76,15 @@
         android:layout_width="170dp"
         android:layout_height="57dp"
         android:layout_marginTop="52dp"
-        android:backgroundTint="@color/new_white"
+        android:background="@drawable/new_button"
         android:elevation="10dp"
         android:fontFamily="@font/alata"
         android:onClick="refresh"
         android:text="Check Post"
 
         android:textAllCaps="false"
+        android:textColor="#8E6461"
+        android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,27 +95,33 @@
         android:layout_width="129dp"
         android:layout_height="104dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="16dp"
+        android:background="@drawable/new_button"
         android:elevation="10dp"
         android:enabled="false"
         android:fontFamily="@font/alata"
         android:onClick="selectUpdateTime"
         android:text="Auto Check Post"
+        android:textAllCaps="false"
+        android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/changeVnumButton"
         app:layout_constraintTop_toBottomOf="@id/refreshButton" />
 
     <Button
         android:id="@+id/changeVnumButton"
         android:layout_width="116dp"
         android:layout_height="104dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
+        android:background="@drawable/new_button"
         android:enabled="false"
         android:fontFamily="@font/alata"
         android:onClick="changeVnum"
         android:text="Change Vnumber"
+        android:textAllCaps="false"
+        android:textStyle="bold"
         android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/changeUpdateTimeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/refreshButton" />
 
