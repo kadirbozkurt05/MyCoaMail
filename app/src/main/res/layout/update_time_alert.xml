@@ -27,6 +27,8 @@
             android:id="@+id/timeRadioGroup"
             android:layout_width="300dp"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/checkText"
@@ -39,31 +41,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/alata"
+                    android:padding="10dp"
                     android:text="15 minutes"
-                    app:layout_constraintEnd_toStartOf="@+id/minutes30"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/checkText" />
-
-                <RadioButton
-                    android:id="@+id/minutes30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/alata"
-                    android:text="30 minutes"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/minutes15"
-                    app:layout_constraintTop_toBottomOf="@id/checkText" />
+                     />
 
 
-    <RadioButton
+            <RadioButton
+                android:id="@+id/minutes30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/alata"
+                android:padding="10dp"
+                android:layout_marginStart="10dp"
+                android:text="30 minutes"/>
+
+            <RadioButton
         android:id="@+id/minutes45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
+                android:padding="10dp"
         android:text="45 minutes"
-        app:layout_constraintStart_toStartOf="@id/minutes15"
-        app:layout_constraintTop_toBottomOf="@id/minutes15" />
+                android:layout_marginStart="-257dp"
+                android:layout_marginTop="60dp"/>
 
     <RadioButton
         android:id="@+id/never"
@@ -71,8 +72,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
         android:text="Never"
-        app:layout_constraintStart_toStartOf="@+id/minutes30"
-        app:layout_constraintTop_toBottomOf="@id/minutes30" />
+        android:padding="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"/>
 
         </RadioGroup>
 
@@ -95,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/new_button"
-            android:enabled="true"
+            android:enabled="false"
             android:fontFamily="@font/alata"
             android:text="Submit"
             android:textAllCaps="false"
