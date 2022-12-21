@@ -83,6 +83,7 @@
         android:text="Check Post"
 
         android:textAllCaps="false"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -94,9 +95,11 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:elevation="10dp"
+        android:enabled="false"
         android:fontFamily="@font/alata"
         android:onClick="selectUpdateTime"
         android:text="Auto Check Post"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/refreshButton" />
 
@@ -106,9 +109,11 @@
         android:layout_height="104dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
+        android:enabled="false"
         android:fontFamily="@font/alata"
         android:onClick="changeVnum"
         android:text="Change Vnumber"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/refreshButton" />
 

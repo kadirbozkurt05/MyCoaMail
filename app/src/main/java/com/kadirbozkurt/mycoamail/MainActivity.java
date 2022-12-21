@@ -109,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void unused) {
                 super.onPostExecute(unused);
-                binding.refreshButton.setVisibility(View.VISIBLE);
                 binding.progressBar.setVisibility(View.GONE);
                 binding.mailBox.setVisibility(View.VISIBLE);
-                binding.changeUpdateTimeButton.setVisibility(View.VISIBLE);
-                binding.changeVnumButton.setVisibility(View.VISIBLE);
+                binding.refreshButton.setVisibility(View.VISIBLE);
+                binding.changeUpdateTimeButton.setEnabled(true);
+                binding.changeVnumButton.setEnabled(true);
                 if(element.size()==0){
                     binding.textView.setText("You don't have a mail!");
                 }else{
@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
             binding.progressBar.setVisibility(View.VISIBLE);
             binding.mailBox.setVisibility(View.INVISIBLE);
+            binding.refreshButton.setVisibility(View.INVISIBLE);
 
         }
     }
@@ -262,9 +263,9 @@ public class MainActivity extends AppCompatActivity {
     public void refresh(View v){
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.refreshButton.setVisibility(View.INVISIBLE);
-        binding.changeVnumButton.setVisibility(View.INVISIBLE);
+        binding.changeVnumButton.setEnabled(false);
         binding.textView.setText("Your posts are being checked...");
-        binding.changeUpdateTimeButton.setVisibility(View.INVISIBLE);
+        binding.changeUpdateTimeButton.setEnabled(false);
         mailPage=new MailPage();
         mailPage.execute();
         executeWorkManager();
