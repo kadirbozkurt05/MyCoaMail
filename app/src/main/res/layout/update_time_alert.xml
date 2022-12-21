@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/border4">
-
-
         <TextView
             android:id="@+id/checkText"
             android:layout_width="0dp"
@@ -25,46 +23,58 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <RadioButton
-            android:id="@+id/minutes15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/alata"
-            android:text="15 minutes"
-            app:layout_constraintEnd_toStartOf="@+id/minutes30"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/checkText" />
-
-        <RadioButton
-            android:id="@+id/minutes30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/alata"
-            android:text="30 minutes"
+        <RadioGroup
+            android:id="@+id/timeRadioGroup"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/minutes15"
-            app:layout_constraintTop_toBottomOf="@id/checkText" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkText"
+            app:layout_constraintBottom_toTopOf="@id/customTime">
 
-        <RadioButton
-            android:id="@+id/minutes45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alata"
-            android:text="45 minutes"
-            app:layout_constraintStart_toStartOf="@id/minutes15"
-            app:layout_constraintTop_toBottomOf="@id/minutes15" />
 
-        <RadioButton
-            android:id="@+id/never"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alata"
-            android:text="Never"
-            app:layout_constraintStart_toStartOf="@+id/minutes30"
-            app:layout_constraintTop_toBottomOf="@id/minutes30" />
+                <RadioButton
+                    android:id="@+id/minutes15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/alata"
+                    android:text="15 minutes"
+                    app:layout_constraintEnd_toStartOf="@+id/minutes30"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/checkText" />
+
+                <RadioButton
+                    android:id="@+id/minutes30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/alata"
+                    android:text="30 minutes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/minutes15"
+                    app:layout_constraintTop_toBottomOf="@id/checkText" />
+
+
+    <RadioButton
+        android:id="@+id/minutes45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="45 minutes"
+        app:layout_constraintStart_toStartOf="@id/minutes15"
+        app:layout_constraintTop_toBottomOf="@id/minutes15" />
+
+    <RadioButton
+        android:id="@+id/never"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:text="Never"
+        app:layout_constraintStart_toStartOf="@+id/minutes30"
+        app:layout_constraintTop_toBottomOf="@id/minutes30" />
+
+        </RadioGroup>
 
         <EditText
             android:id="@+id/customTime"
@@ -77,20 +87,20 @@
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/never" />
+            app:layout_constraintTop_toBottomOf="@id/timeRadioGroup" />
 
         <Button
             android:id="@+id/timeApproveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:background="@drawable/new_button"
-            android:enabled="false"
+            android:enabled="true"
             android:fontFamily="@font/alata"
             android:text="Submit"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:visibility="visible"
-            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/customTime" />

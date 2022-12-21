@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         RadioButton minutes30 = timeDialog.findViewById(R.id.minutes30);
         RadioButton minutes45 = timeDialog.findViewById(R.id.minutes45);
         RadioButton never = timeDialog.findViewById(R.id.never);
-        ImageView approveTimeButton = timeDialog.findViewById(R.id.timeApproveButton);
+        Button approveTimeButton = timeDialog.findViewById(R.id.timeApproveButton);
         timeDialog.show();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
