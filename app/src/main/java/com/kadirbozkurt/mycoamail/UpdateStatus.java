@@ -61,8 +61,6 @@ public class UpdateStatus extends Worker {
             try {
                 document = Jsoup.connect("https://www.mycoa.nl/tr/content/posta?field_post_v_nummer_value="+vNum+"&submit_me=1").get();
                 element = document.getElementsByAttributeValue("alt","Post");//No Post, Post
-                System.out.println("element = " + element);
-                System.out.println("vNum = " + vNum);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -76,7 +74,6 @@ public class UpdateStatus extends Worker {
 
                 if (notificationSent){
                     sendNotification("COA MAIL","You have a mail!");
-                    System.out.println("element = " + element.size());
                     notificationSent = false;
                     sharedPreferences.edit().putBoolean("notify",notificationSent).commit();
                 }
