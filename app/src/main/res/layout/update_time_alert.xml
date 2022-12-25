@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:cardBackgroundColor="#00FFFFFF"
+    app:cardCornerRadius="20dp"
+    app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/border4">
+
         <TextView
             android:id="@+id/checkText"
             android:layout_width="0dp"
@@ -18,7 +21,8 @@
             android:fontFamily="@font/alata"
             android:gravity="center_horizontal"
             android:text="Check mails every"
-            android:textSize="20sp"
+            android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,52 +33,51 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
+            app:layout_constraintBottom_toTopOf="@id/customTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/checkText"
-            app:layout_constraintBottom_toTopOf="@id/customTime">
+            app:layout_constraintTop_toBottomOf="@id/checkText">
 
 
-                <RadioButton
-                    android:id="@+id/minutes15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/alata"
-                    android:padding="10dp"
-                    android:text="15 minutes"
-                     />
+            <RadioButton
+                android:id="@+id/minutes15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/alata"
+                android:padding="10dp"
+                android:text="15 minutes" />
 
 
             <RadioButton
                 android:id="@+id/minutes30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/alata"
                 android:padding="10dp"
-                android:layout_marginStart="10dp"
-                android:text="30 minutes"/>
+                android:text="30 minutes" />
 
             <RadioButton
-        android:id="@+id/minutes45"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alata"
+                android:id="@+id/minutes45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-259dp"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/alata"
                 android:padding="10dp"
-        android:text="45 minutes"
-                android:layout_marginStart="-257dp"
-                android:layout_marginTop="60dp"/>
+                android:text="45 minutes" />
 
-    <RadioButton
-        android:id="@+id/never"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alata"
-        android:text="Never"
-        android:padding="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"/>
+            <RadioButton
+                android:id="@+id/never"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/alata"
+                android:padding="10dp"
+                android:text="Never" />
 
         </RadioGroup>
 
@@ -83,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/border4"
+            android:background="@drawable/border5"
             android:fontFamily="@font/alata"
             android:hint="Enter Custom Minutes"
             android:inputType="number"

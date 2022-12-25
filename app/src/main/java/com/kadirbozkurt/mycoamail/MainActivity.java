@@ -31,6 +31,9 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +42,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -79,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
     private String latestVersion;
     private String versionCode;
 
+    //Dropdown Menu icin
+    AutoCompleteTextView autoCompleteTextView;
+    TextView dropdownControl;
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
@@ -109,6 +117,38 @@ public class MainActivity extends AppCompatActivity {
 
         openDialog();
 
+        //  ↓   ↓   ↓   ↓   Dropdown Menu   ↓   ↓   ↓   ↓
+
+        //Dropdown Menu icini doldurmak Icin
+        autoCompleteTextView = findViewById(R.id.drop_items);
+        dropdownControl = findViewById(R.id.itemSelected);
+
+        String [] items = {getString(R.string.english_flag), getString(R.string.spanish_flag), getString(R.string.turkish_flag)};
+        ArrayAdapter<String> itemAdapter= new ArrayAdapter<>(MainActivity.this, R.layout.items_list, items);
+        autoCompleteTextView.setAdapter(itemAdapter);
+
+        //Secilen dile gore duzenleme yapmak icin
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch(String.valueOf(position)) {
+                    case "0":
+                        dropdownControl.setText("Ingilzice secildi");
+                        break;
+                    case "1":
+                        dropdownControl.setText("Ispanyolca secildi");
+                        break;
+                    case "2":
+                        dropdownControl.setText("Turkce secildi");
+                        break;
+                    default:
+                        dropdownControl.setText((String)parent.getItemAtPosition(position));
+                }
+            }
+        });
+
+        //  ↑   ↑   ↑   ↑   Dropdown Menu   ↑   ↑   ↑   ↑
 
     }
     protected class MailPage extends AsyncTask<Void, Void, Void> {
