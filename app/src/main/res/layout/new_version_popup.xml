@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border4"
-    android:layout_margin="20dp">
+    android:background="@drawable/pop_up">
 
     <TextView
         android:id="@+id/newVersionPopUpText"

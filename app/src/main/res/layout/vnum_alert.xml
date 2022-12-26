@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#00FFFFFF"
-    app:cardCornerRadius="10dp">
+    app:cardBackgroundColor="@color/button_text_color"
+    android:focusableInTouchMode="true"
+    app:cardCornerRadius="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/border4">
+        android:background="@drawable/pop_up">
 
 
         <TextView

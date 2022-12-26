@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/yes_mail_1"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_2"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_3"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_4"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_5"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_6"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_5"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_6"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_5"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_4"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_3"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_2"
+        android:duration="400"/>
+    <item
+        android:drawable="@drawable/yes_mail_1"
+        android:duration="400"/>
+
+</animation-list>
