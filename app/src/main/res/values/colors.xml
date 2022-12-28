@@ -9,8 +9,15 @@
     <color name="white">#FFFFFFFF</color>
     <color name="new_white">#E5E5E5 </color>
     <color name="new_pink">#F5B7B1 </color>
-    <color name="new_button">#8F5E5A</color>
+    <color name="new_button">#F1DAD8</color>
+    <color name="new_button_disabled">#E0B0AC</color>
+    <color name="new_button_clicked">#E0B0AC</color>
     <color name="new_button_border">#C9918C </color>
+    <color name="new_border_dark">#C8775855</color>
+    <color name="new_border_light">#4AF0CECB</color>
+    <color name="new_button_border_clicked">#C37C6260</color>
+    <color name="button_text_color">#1A1A1A</color>
     <color name="trans">#00000000 </color>
     <color name="half_trans">#DAD58888</color>
+
 </resources>

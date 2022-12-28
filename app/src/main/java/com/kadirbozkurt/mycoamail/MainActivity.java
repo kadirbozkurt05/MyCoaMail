@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -31,6 +32,9 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +43,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -79,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
     private String latestVersion;
     private String versionCode;
 
+    //Dropdown Menu icin
+    AutoCompleteTextView autoCompleteTextView;
+    TextView dropdownControl;
+
+    //Animasyonlar icin
+    AnimationDrawable mailAnimation;
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
@@ -104,10 +116,48 @@ public class MainActivity extends AppCompatActivity {
 
         //Because it is checking the posts at that point set text and hide image
         binding.textView.setText("Your posts are being checked...");
-        binding.mailBox.setVisibility(View.INVISIBLE);
+        ImageView animationHolder = findViewById(R.id.animationHolder);
+        animationHolder.setBackgroundResource(R.drawable.animation_searching);
+        mailAnimation = (AnimationDrawable) animationHolder.getBackground();
+        mailAnimation.start();
         vNumDialog = new Dialog(this); //Dialog for asking v-num at the beginning and changing
 
         openDialog();
+
+        //  ↓   ↓   ↓   ↓   Dropdown Menu   ↓   ↓   ↓   ↓
+
+        //Dropdown Menu icini doldurmak Icin
+        autoCompleteTextView = findViewById(R.id.drop_items);
+        dropdownControl = findViewById(R.id.itemSelected);
+
+        String [] items = {getString(R.string.english_flag), getString(R.string.spanish_flag), getString(R.string.turkish_flag)};
+        ArrayAdapter<String> itemAdapter= new ArrayAdapter<>(MainActivity.this, R.layout.items_list, items);
+        autoCompleteTextView.setAdapter(itemAdapter);
+
+        //Secilen dile gore duzenleme yapmak icin
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch(String.valueOf(position)) {
+                    case "0":
+                        dropdownControl.setText("Ingilzice secildi");
+                        break;
+                    case "1":
+                        dropdownControl.setText("Ispanyolca secildi");
+                        break;
+                    case "2":
+                        dropdownControl.setText("Turkce secildi");
+                        break;
+                    default:
+                        dropdownControl.setText((String)parent.getItemAtPosition(position));
+                }
+            }
+        });
+
+        //  ↑   ↑   ↑   ↑   Dropdown Menu   ↑   ↑   ↑   ↑
+
+        //  ↓   ↓   ↓   ↓   Animasyonlar   ↓   ↓   ↓   ↓
 
 
     }
@@ -130,15 +180,21 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Void unused) {
                 super.onPostExecute(unused);
                 binding.progressBar.setVisibility(View.GONE);
-                binding.mailBox.setVisibility(View.VISIBLE);
                 binding.refreshButton.setVisibility(View.VISIBLE);
                 binding.changeUpdateTimeButton.setEnabled(true);
                 binding.changeVnumButton.setEnabled(true);
                 if(element.size()==0){
                     binding.textView.setText("You don't have a mail!");
+                    ImageView animationHolder = findViewById(R.id.animationHolder);
+                    animationHolder.setBackgroundResource(R.drawable.animation_no_mail);
+                    mailAnimation = (AnimationDrawable) animationHolder.getBackground();
+                    mailAnimation.start();
                 }else{
                     binding.textView.setText("You have a mail!");
-                    binding.mailBox.setImageResource(R.drawable.fullmailbox);
+                    ImageView animationHolder = findViewById(R.id.animationHolder);
+                    animationHolder.setBackgroundResource(R.drawable.animation_mail_found);
+                    mailAnimation = (AnimationDrawable) animationHolder.getBackground();
+                    mailAnimation.start();
                 }
 
             }
@@ -147,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             binding.progressBar.setVisibility(View.VISIBLE);
-            binding.mailBox.setVisibility(View.INVISIBLE);
             binding.refreshButton.setVisibility(View.INVISIBLE);
 
         }
@@ -174,6 +229,11 @@ public class MainActivity extends AppCompatActivity {
                         ignoreBatteryOptimization(); //if user provides his 10 digit v-num, ask for permissions
                         sharedPreferences.edit().putString("vNum",vNum).commit(); // store the v-num
                         vNumDialog.dismiss();
+                        binding.textView.setText("Your posts are being checked...");
+                        ImageView animationHolder = findViewById(R.id.animationHolder);
+                        animationHolder.setBackgroundResource(R.drawable.animation_searching);
+                        mailAnimation = (AnimationDrawable) animationHolder.getBackground();
+                        mailAnimation.start();
                         MailPage mailPage = new MailPage(); //create Mail page object to start background task
                         mailPage.execute(); // start background task
                         executeWorkManager();
@@ -284,6 +344,10 @@ public class MainActivity extends AppCompatActivity {
         binding.refreshButton.setVisibility(View.INVISIBLE);
         binding.changeVnumButton.setEnabled(false);
         binding.textView.setText("Your posts are being checked...");
+        ImageView animationHolder = findViewById(R.id.animationHolder);
+        animationHolder.setBackgroundResource(R.drawable.animation_searching);
+        mailAnimation = (AnimationDrawable) animationHolder.getBackground();
+        mailAnimation.start();
         binding.changeUpdateTimeButton.setEnabled(false);
         mailPage=new MailPage();
         mailPage.execute();
