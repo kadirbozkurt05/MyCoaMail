@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border4"
-    android:layout_margin="20dp">
+    android:background="@drawable/pop_up">
 
     <TextView
         android:id="@+id/newVersionPopUpText"
@@ -13,6 +12,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
         android:text="There is a new version of the app. Do you want to update?"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <androidx.appcompat.widget.AppCompatButton
