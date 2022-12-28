@@ -23,6 +23,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,13 +52,13 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.kadirbozkurt.mycoamail.databinding.ActivityMainBinding;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 
@@ -83,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
     private MailPage mailPage;
     private String latestVersion;
     private String versionCode;
+    private String postsAreChecking;
+    private String haveAPost;
+    private String dontHaveAPost;
+    private String language;
+    private int dropDownPosition;
 
     //Dropdown Menu icin
     AutoCompleteTextView autoCompleteTextView;
@@ -98,10 +106,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.postsConditionTextView.setText(R.string.checking_posts);
         sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
         //After every 5 run, check for the update
         int day = sharedPreferences.getInt("day",0);
-        System.out.println("DAY :"+day);
+        dropDownPosition = sharedPreferences.getInt("position",0);
+        language = sharedPreferences.getString("language","en");
+        setLanguageForStart(language);
         sharedPreferences.edit().putInt("day",day+1).commit();
         if (day>4){
             checkVersion();
@@ -115,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         timeToRefresh = sharedPreferences.getInt("timeToRefresh",60);
 
         //Because it is checking the posts at that point set text and hide image
-        binding.textView.setText("Your posts are being checked...");
         ImageView animationHolder = findViewById(R.id.animationHolder);
         animationHolder.setBackgroundResource(R.drawable.animation_searching);
         mailAnimation = (AnimationDrawable) animationHolder.getBackground();
@@ -128,10 +138,18 @@ public class MainActivity extends AppCompatActivity {
 
         //Dropdown Menu icini doldurmak Icin
         autoCompleteTextView = findViewById(R.id.drop_items);
-        dropdownControl = findViewById(R.id.itemSelected);
 
-        String [] items = {getString(R.string.english_flag), getString(R.string.spanish_flag), getString(R.string.turkish_flag)};
+        /////text'ler
+        postsAreChecking = getString(R.string.checking_posts);
+        haveAPost = getString(R.string.have_mail);
+        dontHaveAPost = getString(R.string.dont_have_mail);
+        binding.changeVnumButton.setText(R.string.change_vnum_button);
+        binding.refreshButton.setText(R.string.refresh_button);
+        binding.changeUpdateTimeButton.setText(R.string.auto_check_button);
+
+        String [] items = {getString(R.string.english_flag), getString(R.string.spanish_flag), getString(R.string.turkish_flag),getString(R.string.arabic_flag)};
         ArrayAdapter<String> itemAdapter= new ArrayAdapter<>(MainActivity.this, R.layout.items_list, items);
+        autoCompleteTextView.setText(items[dropDownPosition]);
         autoCompleteTextView.setAdapter(itemAdapter);
 
         //Secilen dile gore duzenleme yapmak icin
@@ -141,14 +159,25 @@ public class MainActivity extends AppCompatActivity {
 
                 switch(String.valueOf(position)) {
                     case "0":
-                        dropdownControl.setText("Ingilzice secildi");
+                        setLanguage("en");
+                        sharedPreferences.edit().putString("language","en").commit();
+                        sharedPreferences.edit().putInt("position",position).commit();
+
                         break;
                     case "1":
-                        dropdownControl.setText("Ispanyolca secildi");
+                        setLanguage("es");
+                        sharedPreferences.edit().putString("language","es").commit();
+                        sharedPreferences.edit().putInt("position",position).commit();
                         break;
                     case "2":
-                        dropdownControl.setText("Turkce secildi");
+                        setLanguage("tr");
+                        sharedPreferences.edit().putString("language","tr").commit();
+                        sharedPreferences.edit().putInt("position",position).commit();
                         break;
+                    case "3":
+                        setLanguage("ar");
+                        sharedPreferences.edit().putString("language","ar").commit();
+                        sharedPreferences.edit().putInt("position",position).commit();
                     default:
                         dropdownControl.setText((String)parent.getItemAtPosition(position));
                 }
@@ -184,13 +213,13 @@ public class MainActivity extends AppCompatActivity {
                 binding.changeUpdateTimeButton.setEnabled(true);
                 binding.changeVnumButton.setEnabled(true);
                 if(element.size()==0){
-                    binding.textView.setText("You don't have a mail!");
+                    binding.postsConditionTextView.setText(dontHaveAPost);
                     ImageView animationHolder = findViewById(R.id.animationHolder);
                     animationHolder.setBackgroundResource(R.drawable.animation_no_mail);
                     mailAnimation = (AnimationDrawable) animationHolder.getBackground();
                     mailAnimation.start();
                 }else{
-                    binding.textView.setText("You have a mail!");
+                    binding.postsConditionTextView.setText(haveAPost);
                     ImageView animationHolder = findViewById(R.id.animationHolder);
                     animationHolder.setBackgroundResource(R.drawable.animation_mail_found);
                     mailAnimation = (AnimationDrawable) animationHolder.getBackground();
@@ -202,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            binding.postsConditionTextView.setText(postsAreChecking);
             binding.progressBar.setVisibility(View.VISIBLE);
             binding.refreshButton.setVisibility(View.INVISIBLE);
 
@@ -220,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     vNum = vNumEditText.getText().toString();
                     if (vNum.length()!=10){
-                        Snackbar.make(findViewById(android.R.id.content).getRootView(),"V-Number must be 10 digits!",Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+                        Snackbar.make(findViewById(android.R.id.content).getRootView(),R.string.vNum10digit,Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                             }
@@ -229,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
                         ignoreBatteryOptimization(); //if user provides his 10 digit v-num, ask for permissions
                         sharedPreferences.edit().putString("vNum",vNum).commit(); // store the v-num
                         vNumDialog.dismiss();
-                        binding.textView.setText("Your posts are being checked...");
                         ImageView animationHolder = findViewById(R.id.animationHolder);
                         animationHolder.setBackgroundResource(R.drawable.animation_searching);
                         mailAnimation = (AnimationDrawable) animationHolder.getBackground();
@@ -261,15 +290,15 @@ public class MainActivity extends AppCompatActivity {
     }
     public void changeVnum(View v){
         AlertDialog.Builder alert =new AlertDialog.Builder(MainActivity.this);
-        alert.setMessage("Your previous V-Number will be deleted. Do you want to change your V-Number?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alert.setMessage(R.string.change_vnum_alert)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         vNum ="";
                         sharedPreferences.edit().putString("vNum","").commit();
                         openDialog();
                     }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
@@ -343,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.refreshButton.setVisibility(View.INVISIBLE);
         binding.changeVnumButton.setEnabled(false);
-        binding.textView.setText("Your posts are being checked...");
         ImageView animationHolder = findViewById(R.id.animationHolder);
         animationHolder.setBackgroundResource(R.drawable.animation_searching);
         mailAnimation = (AnimationDrawable) animationHolder.getBackground();
@@ -358,15 +386,14 @@ public class MainActivity extends AppCompatActivity {
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         if (powerManager!=null && !powerManager.isIgnoringBatteryOptimizations(getPackageName())){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("You must allow permission this app to check your posts in background. Otherwise" +
-                    "you will not get notification even if you received a post!");
-            alert.setNegativeButton("Don't allow", new DialogInterface.OnClickListener() {
+            alert.setMessage(R.string.permission_alert_text);
+            alert.setNegativeButton(R.string.dont_allow, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                 }
             });
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                         startPowerSaverIntent(MainActivity.this);
@@ -379,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
             alert.show();
         }
     }
+    @SuppressLint("StringFormatInvalid")
     public static void startPowerSaverIntent(Context context) {
         SharedPreferences settings = context.getSharedPreferences("ProtectedApps", Context.MODE_PRIVATE);
         boolean skipMessage = settings.getBoolean("skipProtectedAppCheck", false);
@@ -389,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                 if (isCallable(context, intent)) {
                     foundCorrectIntent = true;
                     final AppCompatCheckBox dontShowAgain = new AppCompatCheckBox(context);
-                    dontShowAgain.setText("Do not show again");
+                    dontShowAgain.setText(R.string.dont_show_again);
                     dontShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         editor.putBoolean("skipProtectedAppCheck", isChecked);
                         editor.apply();
@@ -397,9 +425,9 @@ public class MainActivity extends AppCompatActivity {
 
                     new AlertDialog.Builder(context)
                             .setTitle(Build.MANUFACTURER + " Protected Apps")
-                            .setMessage(String.format("Please Click 'GO TO SETTINGS' and enable 'POST CHECKER' app for autostart.", context.getString(R.string.app_name)))
+                            .setMessage(String.format(context.getString(R.string.go_to_settings), context.getString(R.string.app_name)))
                             .setView(dontShowAgain)
-                            .setPositiveButton("Go to settings", (dialog, which) -> context.startActivity(intent))
+                            .setPositiveButton(R.string.go_to_settings_short, (dialog, which) -> context.startActivity(intent))
                             .setNegativeButton(android.R.string.cancel, null)
                             .show();
                     break;
@@ -471,4 +499,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void setLanguage(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(refresh);
+    }
+    public void setLanguageForStart(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+    }
+
 }

@@ -1,6 +1,34 @@
 <resources>
-    <string name="app_name">Post Checker</string>
+    <string name="app_name" translatable="false">Post Checker</string>
+    <string name="language">Language</string>
     <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 English</string>
     <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 Spanish</string>
     <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 Turkish</string>
+    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 Arabic</string>
+    <string name="have_mail">You have a mail!</string>
+    <string name="dont_have_mail">You don\'t have a mail</string>
+    <string name="checking_posts">Your mails are being checked…</string>
+    <string name="refresh_button">Check Mails</string>
+    <string name="change_vnum_button">Change V-Number</string>
+    <string name="auto_check_button">Auto Check Mails</string>
+    <string name="change_vnum_alert">Your previous V-Numnber will be deleted. Do you want to change your V-Number?</string>
+    <string name="minutes15">15 minutes</string>
+    <string name="minutes30">30 minutes</string>
+    <string name="minutes45">45 minutes</string>
+    <string name="never">Never</string>
+    <string name="auto_check_alert_title">Check Mails every</string>
+    <string name="auto_check_custom_minutes">Enter Custom Minutes</string>
+    <string name="submit">Submit</string>
+    <string name="change_vnum_alert_title">Please Enter Your V-Number</string>
+    <string name="vNum10digit">V-Number must be 10 digits!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="permission_alert_text">You must allow permission this app to check your posts in background. Otherwise you will not get notification even if you received a post!</string>
+    <string name="allow">Allow</string>
+    <string name="dont_allow">Don\'t Allow</string>
+    <string name="dont_show_again">Don\'t Show Again</string>
+    <string name="go_to_settings">Please Click \'GO TO SETTINGS\' and enable \'POST CHECKER\' app for autostart.</string>
+    <string name="go_to_settings_short">GO TO SETTINGS</string>
+    <string name="new_version_pop_up">Uygulamanın yeni bir sürümü var. İndirmek ister misiniz??</string>
+    <string name="later">Later</string>
 </resources>
