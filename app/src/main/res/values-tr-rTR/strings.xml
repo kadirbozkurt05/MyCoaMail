@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Post Checker</string>
+    <string name="language">Dil</string>
+    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 İngilizce</string>
+    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 İspanyolca</string>
+    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 Türkçe</string>
+    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 Arapça</string>
+    <string name="have_mail">Postanız var!</string>
+    <string name="dont_have_mail">Postanız yok</string>
+    <string name="checking_posts">Postalarınız kontrol ediliyor...</string>
+    <string name="refresh_button">Postaları Kontrol Et</string>
+    <string name="change_vnum_button">V-Numarası Değiştir</string>
+    <string name="auto_check_button">Postaları Otomatik Kontrol Et</string>
+    <string name="change_vnum_alert">Eski V-numaranız silinecektir. V-Numaranızı değiştirmek istediğinizden emin misiniz?</string>
+    <string name="minutes15">15 dakika</string>
+    <string name="minutes30">30 dakika</string>
+    <string name="minutes45">45 dakika</string>
+    <string name="never">Asla</string>
+    <string name="auto_check_alert_title">Postaları şu kadar sürede bir kontrol et</string>
+    <string name="auto_check_custom_minutes">İstediğiniz süreyi giriniz</string>
+    <string name="submit">Onayla</string>
+    <string name="change_vnum_alert_title">Lütfen V-Numaranızı Giriniz</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="vNum10digit">V-Numarası 10 tane rakamdan oluşur!</string>
+    <string name="permission_alert_text">Programın arka planda çalışmasına izin vermelisiniz. Aksi halde postanız geldiğinde bildirim alamayabilirsiniz.</string>
+    <string name="allow">İzin Ver</string>
+    <string name="dont_allow">İzin Verme</string>
+    <string name="dont_show_again">Bir daha gösterme</string>
+    <string name="go_to_settings">Lütfen \'AYARLARA GİT\' seçeneğini seçip \'POST CHECKER\' uygulamasının başlangıçta açılmasına izin verin.</string>
+    <string name="go_to_settings_short">AYARLARA GİT</string>
+    <string name="new_version_pop_up">There is a new version of the app. Do you want to update?</string>
+    <string name="later">Daha Sonra</string>
+</resources>

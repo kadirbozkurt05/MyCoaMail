@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Post Checker</string>
+    <string name="language">لغة</string>
+    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 الانجليزية</string>
+    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 الإسبانية</string>
+    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 التركية</string>
+    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 عربى</string>
+    <string name="have_mail">لديك بريد!</string>
+    <string name="dont_have_mail">ليس لديك بريد</string>
+    <string name="checking_posts">يتم فحص الرسائل الخاصة بك…</string>
+    <string name="refresh_button">تحقق من الرسائل</string>
+    <string name="change_vnum_button">تغيير V-عدد</string>
+    <string name="auto_check_button">تحقق تلقائيًا من الرسائل</string>
+    <string name="change_vnum_alert">سيتم حذف V-Number السابق. هل تريد تغيير V-عدد؟</string>
+    <string name="minutes15">15 دقيقة</string>
+    <string name="minutes30">30 دقيقة</string>
+    <string name="minutes45">45 دقيقة</string>
+    <string name="never">أبدًا</string>
+    <string name="auto_check_alert_title">تحقق من الرسائل كل</string>
+    <string name="auto_check_custom_minutes">أدخل الدقائق المخصصة</string>
+    <string name="submit">تسليم</string>
+    <string name="change_vnum_alert_title">الرجاء إدخال V-عدد</string>
+    <string name="vNum10digit">V-عدد يجب أن يتكون من 10 أرقام!</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="permission_alert_text">يجب عليك السماح لهذا التطبيق بفحص الرسائل الخاصة بك في الخلفية. وإلا لن تتلقى إخطارًا حتى وإن كنت قد</string>
+    <string name="allow">السماح</string>
+    <string name="dont_allow">لا تسمح</string>
+    <string name="dont_show_again">لا تظهر مرة أخرى</string>
+    <string name="go_to_settings">يرجى النقر على  الذهاب إلى الإعدادات وتمكين تطبيق POST CHECKER للتشغيل التلقائي.</string>
+    <string name="go_to_settings_short">إذهب إلى الإعدادات</string>
+    <string name="new_version_pop_up">هناك نسخة جديدة من التطبيق. هل تريد تنزيله؟</string>
+    <string name="later">في وقت لاحق</string>
+</resources>

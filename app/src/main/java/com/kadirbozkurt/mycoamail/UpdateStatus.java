@@ -70,10 +70,10 @@ public class UpdateStatus extends Worker {
 
         @Override
         protected void onPostExecute(Void unused) {
-            if (element.size()>0){//>0 olarak düzelt
+            if (element.size()>0){
 
                 if (notificationSent){
-                    sendNotification("COA MAIL","You have a mail!");
+                    sendNotification("COA MAIL", (String) context.getText(R.string.have_mail));
                     notificationSent = false;
                     sharedPreferences.edit().putBoolean("notify",notificationSent).commit();
                 }

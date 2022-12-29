@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Post Checker</string>
+    <string name="language">idioma</string>
+    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 Inglés</string>
+    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 Español</string>
+    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 Turco</string>
+    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 Arábica</string>
+    <string name="have_mail">¡Tienes un correo!</string>
+    <string name="dont_have_mail">No tienes correo</string>
+    <string name="checking_posts">Se están comprobando tus correos…</string>
+    <string name="refresh_button">Comprobar Correos</string>
+    <string name="change_vnum_button">Cambiar V-Number</string>
+    <string name="auto_check_button">Comprobación Automática de Correos</string>
+    <string name="change_vnum_alert">Se eliminará tu V-Number anterior. ¿Quieres cambiar tu V-Number?</string>
+    <string name="minutes15">15 minutos</string>
+    <string name="minutes30">30 minutos</string>
+    <string name="minutes45">45 minutos</string>
+    <string name="never">Nunca</string>
+    <string name="auto_check_alert_title">Comprobar correos cada</string>
+    <string name="auto_check_custom_minutes">Ingresar minutos personalizados</string>
+    <string name="submit">Enviar</string>
+    <string name="change_vnum_alert_title">Por favor ingresa tu V-Number</string>
+    <string name="vNum10digit">¡El V-Number debe tener 10 dígitos!</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="permission_alert_text">Debes permitir que esta aplicación revise tus correos en segundo plano. ¡De lo contrario, no recibirás notificación aunque hayas recibido un correo!</string>
+    <string name="allow">Permitir</string>
+    <string name="dont_allow">No permitir</string>
+    <string name="dont_show_again">No volver a mostrar</string>
+    <string name="go_to_settings">Por favor, haz clic en \'IR A AJUSTES\' y habilita la aplicación \'POST CHECKER\' para el inicio automático.</string>
+    <string name="go_to_settings_short">IR A AJUSTES</string>
+    <string name="new_version_pop_up">¿Hay una nueva versión de la aplicación. ¿Quieres descargarla?</string>
+    <string name="later">Más tarde</string>
+
+</resources>
