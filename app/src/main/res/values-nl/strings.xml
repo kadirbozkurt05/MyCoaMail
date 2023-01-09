@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Post Checker</string>
+    <string name="language">Taal</string>
+    <string name="have_mail">Je hebt een post!</string>
+    <string name="dont_have_mail">Je hebt geen post</string>
+    <string name="checking_posts">Je post wordt gecontroleerd...</string>
+    <string name="refresh_button">Controleer post</string>
+    <string name="change_vnum_button">Verander V-nummer</string>
+    <string name="auto_check_button">Automatisch controleren op post</string>
+    <string name="change_vnum_alert">Je vorige V-nummer zal worden verwijderd. Wil je je V-nummer veranderen?</string>
+    <string name="minutes15">15 minuten</string>
+    <string name="minutes30">30 minuten</string>
+    <string name="minutes45">45 minuten</string>
+    <string name="never">Nooit</string>
+    <string name="auto_check_alert_title">Controleer elke</string>
+    <string name="auto_check_custom_minutes">Voer aangepaste minuten in</string>
+    <string name="submit">Verzenden</string>
+    <string name="change_vnum_alert_title">Voer alstublieft uw V-nummer in</string>
+    <string name="vNum10digit">V-nummer moet 10 cijfers bevatten!</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="permission_alert_text">U moet deze app toestemming geven om uw post te controleren op de achtergrond. Anders krijg je geen melding, ook al heb je een post ontvangen!</string>
+    <string name="allow">Toestaan</string>
+    <string name="dont_allow">Niet toestaan</string>
+    <string name="dont_show_again">Niet meer tonen</string>
+    <string name="go_to_settings">Klik alstublieft op \'GA NAAR INSTELLINGEN\' en sta \'POST CHECKER\' app toe om automatisch te starten.</string>
+    <string name="go_to_settings_short">GA NAAR INSTELLINGEN</string>
+    <string name="new_version_pop_up">Er is een nieuwe versie van de app. Wil je deze downloaden?</string>
+    <string name="later">Later</string>
+</resources>

@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">Post Checker</string>
     <string name="language">Language</string>
-    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 English</string>
-    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 Spanish</string>
-    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 Turkish</string>
-    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 Arabic</string>
+    <string name="english_flag" translatable="false">\uD83C\uDDEC\uD83C\uDDE7 English</string>
+    <string name="spanish_flag" translatable="false">\uD83C\uDDEA\uD83C\uDDF8 Española</string>
+    <string name="turkish_flag" translatable="false">\uD83C\uDDF9\uD83C\uDDF7 Türkçe</string>
+    <string name="arabic_flag" translatable="false">&#x1F1F8;&#x1F1F7; عربى</string>
+    <string name="netherlands_flag" translatable="false">&#x1F1F3;&#x1F1F1; nederlands</string>
+    <string name="kurdish_flag" translatable="false">&#x1F1F8;&#x1F1F3; Kurdî</string>
     <string name="have_mail">You have a mail!</string>
     <string name="dont_have_mail">You don\'t have a mail</string>
     <string name="checking_posts">Your mails are being checked…</string>
@@ -29,6 +31,6 @@
     <string name="dont_show_again">Don\'t Show Again</string>
     <string name="go_to_settings">Please Click \'GO TO SETTINGS\' and enable \'POST CHECKER\' app for autostart.</string>
     <string name="go_to_settings_short">GO TO SETTINGS</string>
-    <string name="new_version_pop_up">Uygulamanın yeni bir sürümü var. İndirmek ister misiniz??</string>
+    <string name="new_version_pop_up">There is a new version of this app. Do you want to update?</string>
     <string name="later">Later</string>
 </resources>

@@ -2,10 +2,6 @@
 <resources>
     <string name="app_name" translatable="false">Post Checker</string>
     <string name="language">idioma</string>
-    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 Inglés</string>
-    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 Español</string>
-    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 Turco</string>
-    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 Arábica</string>
     <string name="have_mail">¡Tienes un correo!</string>
     <string name="dont_have_mail">No tienes correo</string>
     <string name="checking_posts">Se están comprobando tus correos…</string>

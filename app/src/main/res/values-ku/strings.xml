@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Post Checker</string>
+    <string name="language">Ziman</string>
+    <string name="have_mail">Tu post çêkî!</string>
+    <string name="dont_have_mail">Tu post tune</string>
+    <string name="checking_posts">Têkiliyên te yên postê têkiliyên…</string>
+    <string name="refresh_button">Têkiliyên postê têkiliyên</string>
+    <string name="change_vnum_button">V-Number Biguherîne</string>
+    <string name="auto_check_button">Kontrola Otomatîk a Melekan</string>
+    <string name="change_vnum_alert">Numra V-ya teqdîmî ê wê wenda bê dîtin. Tu dixwazî bê bi Numra V-ya xwe biguherînî?</string>
+    <string name="minutes15">15 deqîqan</string>
+    <string name="minutes30">30 deqîqan</string>
+    <string name="minutes45">45 deqîqan</string>
+    <string name="never">Qet</string>
+    <string name="auto_check_alert_title">Kontrola Melek her</string>
+    <string name="auto_check_custom_minutes">Deqîqe Otomatîk têkevin</string>
+    <string name="submit">Tomar bike</string>
+    <string name="change_vnum_alert_title">Ji kerema xwe Numra V-ya xwe têkevin</string>
+    <string name="vNum10digit">Numra V-ya 10 rêçik hewce dike!</string>
+    <string name="yes">Erê</string>
+    <string name="no">Na</string>
+    <string name="permission_alert_text">Tu gireke ijazetê bidin yêk app-ê ku ew melek di paşve de bêne kontrolkirin. Heger tu na bikî, tu nikarî notifîkasyonê bibînî heger tu melek hatî qebûlkirin!</string>
+    <string name="allow">Ijazet</string>
+    <string name="dont_allow">Ijazet na</string>
+    <string name="dont_show_again">Tîne serê min</string>
+    <string name="go_to_settings">Ji kerema xwe QAFA TEVGERÎ tikandin û vekirina app-ê POST CHECKER-ê ji bo destpêkê têkevin.</string>
+    <string name="go_to_settings_short">QAFA TEVGERÎ</string>
+    <string name="new_version_pop_up">Versiyonek nû yê app-ê vê heye. Tu dixwazî biguherînî?</string>
+    <string name="later">Ducarî</string>
+</resources>

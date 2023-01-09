@@ -45,6 +45,8 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         binding.refreshButton.setText(R.string.refresh_button);
         binding.changeUpdateTimeButton.setText(R.string.auto_check_button);
 
-        String [] items = {getString(R.string.english_flag), getString(R.string.spanish_flag), getString(R.string.turkish_flag),getString(R.string.arabic_flag)};
+        String [] items = {getString(R.string.english_flag), getString(R.string.spanish_flag), getString(R.string.turkish_flag),getString(R.string.arabic_flag),getString(R.string.netherlands_flag),getString(R.string.kurdish_flag)};
         ArrayAdapter<String> itemAdapter= new ArrayAdapter<>(MainActivity.this, R.layout.items_list, items);
         autoCompleteTextView.setText(items[dropDownPosition]);
         autoCompleteTextView.setAdapter(itemAdapter);
@@ -178,6 +180,17 @@ public class MainActivity extends AppCompatActivity {
                         setLanguage("ar");
                         sharedPreferences.edit().putString("language","ar").commit();
                         sharedPreferences.edit().putInt("position",position).commit();
+                        break;
+                    case "4":
+                        setLanguage("nl");
+                        sharedPreferences.edit().putString("language","nl").commit();
+                        sharedPreferences.edit().putInt("position",position).commit();
+                        break;
+                    case "5":
+                        setLanguage("ku");
+                        sharedPreferences.edit().putString("language","ku").commit();
+                        sharedPreferences.edit().putInt("position",position).commit();
+                        break;
                     default:
                         dropdownControl.setText((String)parent.getItemAtPosition(position));
                 }
@@ -250,11 +263,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     vNum = vNumEditText.getText().toString();
                     if (vNum.length()!=10){
-                        Snackbar.make(findViewById(android.R.id.content).getRootView(),R.string.vNum10digit,Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                            }
-                        }).show();
+                        Toast.makeText(MainActivity.this, R.string.vNum10digit, Toast.LENGTH_SHORT).show();
                     }else{
                         ignoreBatteryOptimization(); //if user provides his 10 digit v-num, ask for permissions
                         sharedPreferences.edit().putString("vNum",vNum).commit(); // store the v-num
