@@ -1,17 +1,16 @@
-package com.kadirbozkurt.mycoamail;
+package com.kadirbozkurt.postchecker;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.core.content.ContextCompat;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
-import android.Manifest;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,7 +32,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,19 +39,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.kadirbozkurt.mycoamail.databinding.ActivityMainBinding;
+import com.kadirbozkurt.postchecker.databinding.ActivityMainBinding;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.postsConditionTextView.setText(R.string.checking_posts);
-        sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.mycoamail", Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences("com.kadirbozkurt.postchecker", Context.MODE_PRIVATE);
         //After every 5 run, check for the update
         int day = sharedPreferences.getInt("day",0);
         dropDownPosition = sharedPreferences.getInt("position",0);
@@ -493,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                     yesButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String url = "https://play.google.com/store/apps/details?id=com.kadirbozkurt.mycoamail";
+                            String url = "https://play.google.com/store/apps/details?id=com.kadirbozkurt.postchecker";
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse(url));
                             startActivity(intent);
