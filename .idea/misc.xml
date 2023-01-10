@@ -3,12 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/debug/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2375" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28" />
         <entry key="app/src/main/res/drawable/border1.xml" value="0.28" />
         <entry key="app/src/main/res/drawable/border2.xml" value="0.28" />
         <entry key="app/src/main/res/drawable/border4.xml" value="0.1295" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3115758260091146" />
-        <entry key="app/src/main/res/layout/update_time_alert.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/vnum_alert.xml" value="0.3323029366306028" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.28" />
+        <entry key="app/src/main/res/drawable/new_button.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/rounded_rectangle.xml" value="0.28" />
+        <entry key="app/src/main/res/drawable/rounded_square.xml" value="0.28" />
+        <entry key="app/src/main/res/drawable/rounded_top.xml" value="0.28" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/items_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/new_version_popup.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/update_time_alert.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/vnum_alert.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.163" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.163" />
       </map>

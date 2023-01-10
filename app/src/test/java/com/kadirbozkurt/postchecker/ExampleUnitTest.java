@@ -1,4 +1,4 @@
-package com.kadirbozkurt.mycoamail;
+package com.kadirbozkurt.postchecker;
 
 import org.junit.Test;
 

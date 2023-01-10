@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name">Post Checker</string>
     <string name="language">Dil</string>
-    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 İngilizce</string>
-    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 İspanyolca</string>
-    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 Türkçe</string>
-    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 Arapça</string>
+
     <string name="have_mail">Postanız var!</string>
     <string name="dont_have_mail">Postanız yok</string>
     <string name="checking_posts">Postalarınız kontrol ediliyor...</string>
@@ -30,6 +27,6 @@
     <string name="dont_show_again">Bir daha gösterme</string>
     <string name="go_to_settings">Lütfen \'AYARLARA GİT\' seçeneğini seçip \'POST CHECKER\' uygulamasının başlangıçta açılmasına izin verin.</string>
     <string name="go_to_settings_short">AYARLARA GİT</string>
-    <string name="new_version_pop_up">There is a new version of the app. Do you want to update?</string>
+    <string name="new_version_pop_up">Bu uygulamanın yeni bir sürümü var. İndirmek ister misiniz?</string>
     <string name="later">Daha Sonra</string>
 </resources>

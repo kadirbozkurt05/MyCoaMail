@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.kadirbozkurt.mycoamail",
+  "applicationId": "com.kadirbozkurt.postchecker",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 2,
-      "versionName": "1.0",
+      "versionCode": 1,
+      "versionName": "1.0 - Beta",
       "outputFile": "app-release.apk"
     }
   ],

@@ -1,4 +1,4 @@
-package com.kadirbozkurt.mycoamail;
+package com.kadirbozkurt.postchecker;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -54,7 +54,7 @@ public class UpdateStatus extends Worker {
         public Elements element;
         @Override
         protected Void doInBackground(Void... voids) {
-            sharedPreferences = context.getSharedPreferences("com.kadirbozkurt.mycoamail",Context.MODE_PRIVATE);
+            sharedPreferences = context.getSharedPreferences("com.kadirbozkurt.postchecker",Context.MODE_PRIVATE);
             notificationSent = sharedPreferences.getBoolean("notify",true);
             vNum = sharedPreferences.getString("vNum","");
             Document document = null;

@@ -2,10 +2,6 @@
 <resources>
     <string name="app_name">Post Checker</string>
     <string name="language">لغة</string>
-    <string name="english_flag">\uD83C\uDDEC\uD83C\uDDE7 الانجليزية</string>
-    <string name="spanish_flag">\uD83C\uDDEA\uD83C\uDDF8 الإسبانية</string>
-    <string name="turkish_flag">\uD83C\uDDF9\uD83C\uDDF7 التركية</string>
-    <string name="arabic_flag">\uD83C\uDDEC\uD83C\uDDE7 عربى</string>
     <string name="have_mail">لديك بريد!</string>
     <string name="dont_have_mail">ليس لديك بريد</string>
     <string name="checking_posts">يتم فحص الرسائل الخاصة بك…</string>
